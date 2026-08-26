@@ -7,7 +7,7 @@
    edited file could be invisible until the cache version was bumped, which
    is exactly the kind of thing that makes you distrust the whole page. */
 
-const CACHE = 'maui-v3';
+const CACHE = 'maui-v4';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './data.js', './vault.js',
   './manifest.webmanifest',

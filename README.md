@@ -114,6 +114,22 @@ deliberate limit of a static site with no backend, not an oversight.
 - **Sansei's** early bird is Sun/Mon 5:00–5:45 pm, dine-in only. The discount itself is not published.
   The Kīhei branch has closed; Kapalua is the only Maui location left.
 
+## Keeping it out of search
+
+`index.html` carries `noindex, nofollow, noarchive, nosnippet, noimageindex`. The URL still
+works for anyone you send it to — it just should not surface in a search for a real name
+alongside dates a house is empty.
+
+**A `robots.txt` in this repo would do nothing.** Crawlers only read robots.txt from the domain
+root, which for a project page is `brianchernauskas.github.io/robots.txt` — served from a
+`brianchernauskas.github.io` repo, not this one. Adding one here would look like protection
+while providing none.
+
+It would also be counterproductive alongside `noindex`: a robots.txt `Disallow` stops the
+crawler fetching the page at all, so it never sees the `noindex`, and the bare URL can still
+appear in results. The meta tag alone is the correct mechanism. Compliance is voluntary, so
+this deters well-behaved search engines, not a determined reader.
+
 ## Deploying
 
 Push to a repo, then Settings → Pages → deploy from branch, root. Re-run `tools/encrypt.js`
