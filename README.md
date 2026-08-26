@@ -20,6 +20,33 @@ node tools/encrypt.js "four random words you will remember"
 That reads `secrets.json`, encrypts it, and rewrites `vault.js`. Commit `vault.js`; never commit
 `secrets.json` (it is gitignored).
 
+### If a passphrase you believe is correct gets rejected
+
+```bash
+node tools/check.js "your phrase here"
+```
+
+Runs locally, sends nothing anywhere. It reports whether the phrase opens `vault.js`, and shows
+what the shell actually handed over — character count, space count, word count, and a masked
+shape — so you can spot mangling without exposing the phrase.
+
+Spaces are part of the passphrase. It is encoded byte-for-byte, so `four random words` and
+`fourrandomwords` derive different keys.
+
+Three ways Windows silently encrypts something other than what you typed:
+
+- **Unquoted input.** `node tools/encrypt.js correct horse battery staple` passes only `correct`;
+  the rest become separate arguments and are dropped. `encrypt.js` now refuses this rather than
+  accepting it, but a vault built before that guard existed may have been created this way.
+- **PowerShell expanding `$` or a backtick** inside double quotes — `"blue $river tall stone"`
+  becomes `blue  tall stone` before Node sees it. Use single quotes in PowerShell.
+- **Curly quotes or non-breaking spaces** from pasting out of a document or browser.
+
+If the checker unlocks it but the page will not, the browser is holding cached bytes: hard-reload
+or clear site data for the origin. If the phrase is genuinely lost, nothing is destroyed —
+`secrets.json` is intact and unpublished, so re-run `encrypt.js` with a new phrase and push
+`vault.js`.
+
 **Re-run this any time you edit `secrets.json`** — `vault.js` is a build artifact and goes stale
 silently otherwise. If a passphrase you know is correct gets rejected, you are almost certainly
 looking at a cached or stale `vault.js` rather than a wrong passphrase.
@@ -64,6 +91,7 @@ to your name? If not, it belongs in `secrets.json`, not `data.js`.
 | `secrets.json` | Plaintext confirmation numbers — **gitignored, never publish** |
 | `vault.js` | Generated ciphertext — safe to commit |
 | `tools/encrypt.js` | Re-encrypts `secrets.json` with your passphrase |
+| `tools/check.js` | Tests a passphrase against `vault.js` and diagnoses shell mangling |
 | `sw.js` | Cache-first service worker so the guide works with no signal |
 
 ## Editing content

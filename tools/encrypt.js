@@ -25,10 +25,22 @@ async function main() {
     console.error('\n  Usage: node tools/encrypt.js "your passphrase"\n');
     process.exit(1);
   }
+  if (process.argv.length > 3) {
+    console.error(`\n  Refusing: the shell split your input into ${process.argv.length - 2} arguments.`);
+    console.error('  Only the first would have been used as the passphrase, silently.');
+    console.error('  Quote the whole phrase:  node tools/encrypt.js "word word word word"\n');
+    process.exit(1);
+  }
   if (pass.length < 12) {
     console.error('\n  Refusing: passphrase is under 12 characters.');
     console.error('  This ciphertext will be published. Use four random words or more.\n');
     process.exit(1);
+  }
+  if (/[$`]/.test(pass)) {
+    console.error('\n  Warning: passphrase contains $ or a backtick.');
+    console.error('  PowerShell expands those inside "double quotes", so what you typed may');
+    console.error("  not be what gets encrypted. Use 'single quotes' in PowerShell, then");
+    console.error("  confirm with:  node tools/check.js 'your phrase'\n");
   }
 
   const srcPath = path.join(__dirname, '..', 'secrets.json');
