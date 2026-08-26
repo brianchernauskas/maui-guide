@@ -133,6 +133,12 @@ deliberate limit of a static site with no backend, not an oversight.
 - **Happy hour prices are what published guides reported in 2026 and they move.** Each venue
   carries a confidence tag. `Verify by phone` means a single source, or sources that disagreed —
   most often on times. Call before building a plan around one.
+- **Duke's Beach House has no happy hour.** It was listed with soft price ranges in the first
+  version; the operator discontinued it, confirmed by two sources. The dinner reservation is
+  unaffected, but do not plan a cheap warm-up there.
+- **Pailolo is the one West Maui venue with no published figures at all.** Four-hour window,
+  2–6 pm, discounts confirmed, amounts not documented anywhere. Listed honestly as such rather
+  than filled in with plausible numbers.
 - The Kai Kanani confirmation contains an internal contradiction about the 4:00 pm resort pickup
   versus the 4:30 pm store check-in. Both are shown on the sail card rather than silently picking one.
 - Two restaurants carry unresolved happy hour status: **The Plantation House** runs one but does not
